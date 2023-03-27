@@ -1,5 +1,5 @@
 # Built application files
-*.apk
+#*.apk
 *.aar
 *.ap_
 *.aab
@@ -83,3 +83,11 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+
+
+*.pdb
+
+obj/
+bin/
+Debug/
