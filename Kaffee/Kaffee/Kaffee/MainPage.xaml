@@ -46,7 +46,7 @@
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
       
-      <!--<Image Source=""/>-->
+        <Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Source="Cappucino.png" Aspect="AspectFit"/>
       <Label Text="Cappucino" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"/>
       <Button Text="-" CommandParameter="CPC-" Command="{Binding ButtonPressedCommand}"  Grid.Column="0" Grid.Row="2" FontSize="Title" FontAttributes="Bold"/>
       <Label x:Name="CPC" Text="{Binding Cappucinos}" Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large"/>
@@ -68,7 +68,7 @@
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
       
-      <Label Text="Milchkaffee" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Source="Milchkaffee.png" Aspect="AspectFit"/>
       <Button Text="-" CommandParameter="MKF-" Command="{Binding ButtonPressedCommand}" Grid.Column="0" Grid.Row="2" FontSize="Title" FontAttributes="Bold"/>
       <Label  x:Name="MKF"  Text="{Binding Milchkaffees}"  Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
       <Button Text="+" CommandParameter="MKF+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" FontSize="Title"/>
@@ -86,7 +86,7 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Label Text="Doppelter Espresso" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Source="Espresso.png" Aspect="AspectFit"/>
       <Button Text="-" CommandParameter="DEP-" Command="{Binding ButtonPressedCommand}" Grid.Column="0" Grid.Row="2" />
       <Label x:Name="DEP" Text="{Binding DoppelteEspressi}"  Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
       <Button Text="+" CommandParameter="DEP+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" />
@@ -104,7 +104,7 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Label Text="Espresso Macchiato" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Source="EspressoMacchiato.png" Aspect="AspectFit"/>
       <Button Text="-" CommandParameter="EMA-" Command="{Binding ButtonPressedCommand}" Grid.Column="0" Grid.Row="2" />
       <Label x:Name="EMA" Text="{Binding EspressoMacchiatos}"  Grid.Column="2" Grid.Row="2"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
       <Button Text="+" CommandParameter="EMA+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" />
@@ -122,7 +122,7 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Label Text="Latte Macchiato" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Source="LatteMacchiato.png" Aspect="AspectFit"/>
       <Button Text="-" CommandParameter="LMA-" Command="{Binding ButtonPressedCommand}" Grid.Column="0" Grid.Row="2" />
       <Label x:Name="LMA" Text="{Binding LatteMacchiatos}"  Grid.Column="2" Grid.Row="2"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
       <Button Text="+" CommandParameter="LMA+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" />
@@ -140,7 +140,7 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Label Text="Latte mit Schuss" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Source="LatteMitSchuss.png" Aspect="AspectFit"/>
       <Button Text="-" CommandParameter="LMS-" Command="{Binding ButtonPressedCommand}" Grid.Column="0" Grid.Row="2" />
       <Label x:Name="LMS" Text="{Binding LattesMitSchuss}"  Grid.Column="2" Grid.Row="2"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large"  />
       <Button Text="+" CommandParameter="LMS+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" />
@@ -158,7 +158,7 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Label Text="Zucker" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Source="Zucker.png" Aspect="AspectFit"/>
       <Button Text="-" CommandParameter="ZUC-" Command="{Binding ButtonPressedCommand}" Grid.Column="0" Grid.Row="2" />
       <Label x:Name="ZUC" Text="{Binding Zucker}"  Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large"  />
       <Button Text="+" CommandParameter="ZUC+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" />
