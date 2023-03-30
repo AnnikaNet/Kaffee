@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Kaffee.ViewModel
@@ -89,6 +91,16 @@ namespace Kaffee.ViewModel
       }
     }
 
+    private double m_ScreenWidth; 
+    public double ScreenWidth
+    {
+      get { return m_ScreenWidth; }
+      set
+      {
+        m_ScreenWidth = value;
+        OnPropertyChanged(); 
+      }
+    }
 
     #endregion Properties
 
@@ -104,6 +116,7 @@ namespace Kaffee.ViewModel
       LatteMacchiatos = 0;
       LattesMitSchuss = 0;
       Zucker = 0;
+      ScreenWidth = ((DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density)) / 4; 
     }
     #endregion Konstruktor
 
