@@ -47,8 +47,7 @@
         <ColumnDefinition Width="5"/>
       </Grid.ColumnDefinitions>
 
-      <Grid Grid.Row="1" Grid.Column="1">
-
+      <Grid Grid.Row="1" Grid.Column="1" x:Name="Cappucino">
         <Grid.RowDefinitions>
           <RowDefinition Height="{Binding ScreenWidth}"/>
           <RowDefinition Height="5"/>
@@ -61,15 +60,12 @@
           <ColumnDefinition Width="5"/>
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
         <Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Source="Cappucino.png" Aspect="AspectFit"/>
         <Button Text="-" CommandParameter="CPC-" Command="{Binding ButtonPressedCommand}"  Grid.Column="0" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
         <Label x:Name="CPC" Text="{Binding Cappucinos}" Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large"/>
         <Button Text="+" CommandParameter="CPC+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
-
       </Grid>
-
-      <Grid Grid.Row="1" Grid.Column="3">
+      <Grid Grid.Row="1" Grid.Column="3" x:Name="Milchkaffee">
         <Grid.RowDefinitions>
           <RowDefinition Height="{Binding ScreenWidth}"/>
           <RowDefinition Height="5"/>
@@ -88,7 +84,7 @@
         <Label  x:Name="MKF"  Text="{Binding Milchkaffees}"  Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
         <Button Text="+" CommandParameter="MKF+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
       </Grid>
-      <Grid Grid.Row="3" Grid.Column="1">
+      <Grid Grid.Row="3" Grid.Column="1" x:Name="DoppelterEspresso">
         <Grid.RowDefinitions>
           <RowDefinition Height="{Binding ScreenWidth}"/>
           <RowDefinition Height="5"/>
@@ -106,7 +102,7 @@
         <Label x:Name="DEP" Text="{Binding DoppelteEspressi}"  Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
         <Button Text="+" CommandParameter="DEP+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
       </Grid>
-      <Grid Grid.Row="3" Grid.Column="3">
+      <Grid Grid.Row="3" Grid.Column="3" x:Name="EspressoMacchiato">
         <Grid.RowDefinitions>
           <RowDefinition Height="{Binding ScreenWidth}"/>
           <RowDefinition Height="5"/>
@@ -124,7 +120,7 @@
         <Label x:Name="EMA" Text="{Binding EspressoMacchiatos}"  Grid.Column="2" Grid.Row="2"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
         <Button Text="+" CommandParameter="EMA+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
       </Grid>
-      <Grid Grid.Row="5" Grid.Column="1">
+      <Grid Grid.Row="5" Grid.Column="1" x:Name="LatteMacchiato">
         <Grid.RowDefinitions>
           <RowDefinition Height="{Binding ScreenWidth}"/>
           <RowDefinition Height="5"/>
@@ -142,7 +138,7 @@
         <Label x:Name="LMA" Text="{Binding LatteMacchiatos}"  Grid.Column="2" Grid.Row="2"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
         <Button Text="+" CommandParameter="LMA+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
       </Grid>
-      <Grid Grid.Row="5" Grid.Column="3">
+      <Grid Grid.Row="5" Grid.Column="3" x:Name="LatteMitSchuss">
         <Grid.RowDefinitions>
           <RowDefinition Height="{Binding ScreenWidth}"/>
           <RowDefinition Height="5"/>
@@ -160,7 +156,25 @@
         <Label x:Name="LMS" Text="{Binding LattesMitSchuss}"  Grid.Column="2" Grid.Row="2"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large"  />
         <Button Text="+" CommandParameter="LMS+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
       </Grid>
-      <Grid Grid.Row="7" Grid.Column="1">
+      <Grid Grid.Row="7" Grid.Column="1" x:Name="SchwarzerKaffee">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="{Binding ScreenWidth}"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="5"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="5"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Source="Schwarz.png" Aspect="AspectFit"/>
+        <Button Text="-" CommandParameter="KFS-" Command="{Binding ButtonPressedCommand}" Grid.Column="0" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
+        <Label  x:Name="KFS"  Text="{Binding KaffeesSchwarz}"  Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" />
+        <Button Text="+" CommandParameter="KFS+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
+      </Grid>
+      <Grid Grid.Row="7" Grid.Column="3" x:Name="Zucker">
         <Grid.RowDefinitions>
           <RowDefinition Height="{Binding ScreenWidth}"/>
           <RowDefinition Height="5"/>

@@ -26,6 +26,7 @@ namespace Kaffee.ViewModel
         OnPropertyChanged();
       }
     }
+
     private int m_Milchkaffees;
     public int Milchkaffees
     {
@@ -33,6 +34,17 @@ namespace Kaffee.ViewModel
       set
       {
         m_Milchkaffees = value;
+        OnPropertyChanged();
+      }
+    }
+
+    public int m_KaffeesSchwarz;
+    public int KaffeesSchwarz
+    {
+      get { return m_KaffeesSchwarz; }
+      set
+      {
+        m_KaffeesSchwarz = value;
         OnPropertyChanged();
       }
     }
@@ -111,6 +123,7 @@ namespace Kaffee.ViewModel
 
       Cappucinos = 0;
       Milchkaffees = 0;
+      KaffeesSchwarz = 0;
       DoppelteEspressi = 0;
       EspressoMacchiatos = 0;
       LatteMacchiatos = 0;
@@ -149,6 +162,14 @@ namespace Kaffee.ViewModel
         case "MKF-":
           if (Milchkaffees > 0)
             Milchkaffees--;
+          break;
+
+        case "KFS+":
+          KaffeesSchwarz++;
+          break;
+        case "KFS-":
+          if (KaffeesSchwarz > 0)
+            KaffeesSchwarz--;
           break;
 
         case "DEP+":
