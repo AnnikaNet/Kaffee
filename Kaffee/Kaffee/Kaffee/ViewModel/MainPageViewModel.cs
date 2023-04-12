@@ -1,7 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Kaffee.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
@@ -103,16 +106,28 @@ namespace Kaffee.ViewModel
       }
     }
 
-    private double m_ScreenWidth; 
+    private double m_ScreenWidth;
     public double ScreenWidth
     {
       get { return m_ScreenWidth; }
       set
       {
         m_ScreenWidth = value;
-        OnPropertyChanged(); 
+        OnPropertyChanged();
       }
     }
+
+    private ObservableCollection<Person> m_Personen;
+    public ObservableCollection<Person> Personen
+    {
+      get { return m_Personen; }
+      set
+      {
+        m_Personen = value;
+        OnPropertyChanged();
+      }
+    }
+
 
     #endregion Properties
 
@@ -129,7 +144,9 @@ namespace Kaffee.ViewModel
       LatteMacchiatos = 0;
       LattesMitSchuss = 0;
       Zucker = 0;
-      ScreenWidth = ((DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density)) / 4; 
+      ScreenWidth = ((DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density)) / 4;
+      Personen = new ObservableCollection<Person>();
+      DoPersons();
     }
     #endregion Konstruktor
 
@@ -217,7 +234,139 @@ namespace Kaffee.ViewModel
       }
     }
 
+    public void AddKaffee(string name)
+    {
+      switch (name)
+      {
+        case "Anna":
+          Cappucinos++;
+          Zucker = Zucker + 2;
+          break;
+        case "Annika":
+          LattesMitSchuss++;
+          break;
+        case "Daniel":
+          KaffeesSchwarz++;
+          break;
+        case "Kevin":
+          DoppelteEspressi++;
+          break;
+        case "Tim":
+          Cappucinos++;
+          Zucker++;
+          break;
+        case "Jakob":
+          Milchkaffees++;
+          Zucker = Zucker + 2;
+          break;
+        case "Jan":
+          Milchkaffees++;
+          break;
+        case "Sabine":
+          EspressoMacchiatos++;
+          break;
+        default:
+          break;
+      }
+    }
+
+    public void SubtractKaffee(string name)
+    {
+      switch (name)
+      {
+        case "Anna":
+          Cappucinos--;
+          Zucker = Zucker - 2;
+          break;
+        case "Annika":
+          LattesMitSchuss--;
+          break;
+        case "Daniel":
+          KaffeesSchwarz--;
+          break;
+        case "Kevin":
+          DoppelteEspressi--;
+          break;
+        case "Tim":
+          Cappucinos--;
+          Zucker--;
+          break;
+        case "Jakob":
+          Milchkaffees--;
+          Zucker = Zucker - 2;
+          break;
+        case "Jan":
+          Milchkaffees--;
+          break;
+        case "Sabine":
+          EspressoMacchiatos--;
+          break;
+        default:
+          break;
+      }
+    }
+
     #endregion Methoden
+
+    #region Helper 
+
+    public void DoPersons()
+    {
+      ObservableCollection<Person> l_Personen = new ObservableCollection<Person>();
+
+      l_Personen.Add(new Person()
+      {
+        Name = "Anna",
+        IsPresent = false
+      });
+
+      l_Personen.Add(new Person()
+      {
+        Name = "Annika",
+        IsPresent = false
+      });
+
+      l_Personen.Add(new Person()
+      {
+        Name = "Daniel",
+        IsPresent = false
+      });
+
+      l_Personen.Add(new Person()
+      {
+        Name = "Kevin",
+        IsPresent = false
+      });
+
+      l_Personen.Add(new Person()
+      {
+        Name = "Tim",
+        IsPresent = false
+      });
+
+      l_Personen.Add(new Person()
+      {
+        Name = "Jakob",
+        IsPresent = false
+      });
+
+      l_Personen.Add(new Person()
+      {
+        Name = "Jan",
+        IsPresent = false
+      });
+
+      l_Personen.Add(new Person()
+      {
+        Name = "Sabine",
+        IsPresent = false
+      });
+
+      Personen = new ObservableCollection<Person>(l_Personen.OrderBy(p => p.Name));
+
+    }
+
+    #endregion Helper
 
     #region PropertyChanged
 
