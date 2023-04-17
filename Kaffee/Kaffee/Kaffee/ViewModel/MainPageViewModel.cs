@@ -25,8 +25,11 @@ namespace Kaffee.ViewModel
       get { return m_Cappucinos; }
       set
       {
-        m_Cappucinos = value;
-        OnPropertyChanged();
+        if (value >= 0)
+        {
+          m_Cappucinos = value;
+          OnPropertyChanged();
+        }
       }
     }
 
@@ -36,8 +39,11 @@ namespace Kaffee.ViewModel
       get { return m_Milchkaffees; }
       set
       {
-        m_Milchkaffees = value;
-        OnPropertyChanged();
+        if (value >= 0)
+        {
+          m_Milchkaffees = value;
+          OnPropertyChanged();
+        }
       }
     }
 
@@ -47,8 +53,11 @@ namespace Kaffee.ViewModel
       get { return m_KaffeesSchwarz; }
       set
       {
-        m_KaffeesSchwarz = value;
-        OnPropertyChanged();
+        if (value >= 0)
+        {
+          m_KaffeesSchwarz = value;
+          OnPropertyChanged();
+        }
       }
     }
 
@@ -58,8 +67,11 @@ namespace Kaffee.ViewModel
       get { return m_DoppelteEspressi; }
       set
       {
-        m_DoppelteEspressi = value;
-        OnPropertyChanged();
+        if (value >= 0)
+        {
+          m_DoppelteEspressi = value;
+          OnPropertyChanged();
+        }
       }
     }
 
@@ -69,8 +81,11 @@ namespace Kaffee.ViewModel
       get { return m_EspressoMacchiatos; }
       set
       {
-        m_EspressoMacchiatos = value;
-        OnPropertyChanged();
+        if (value >= 0)
+        {
+          m_EspressoMacchiatos = value;
+          OnPropertyChanged();
+        }
       }
     }
     private int m_LatteMacchiatos;
@@ -79,8 +94,11 @@ namespace Kaffee.ViewModel
       get { return m_LatteMacchiatos; }
       set
       {
-        m_LatteMacchiatos = value;
-        OnPropertyChanged();
+        if (value >= 0)
+        {
+          m_LatteMacchiatos = value;
+          OnPropertyChanged();
+        }
       }
     }
 
@@ -90,8 +108,11 @@ namespace Kaffee.ViewModel
       get { return m_LattesMitSchuss; }
       set
       {
-        m_LattesMitSchuss = value;
-        OnPropertyChanged();
+        if (value >= 0)
+        {
+          m_LattesMitSchuss = value;
+          OnPropertyChanged();
+        }
       }
     }
 
@@ -101,8 +122,11 @@ namespace Kaffee.ViewModel
       get { return m_Zucker; }
       set
       {
-        m_Zucker = value;
-        OnPropertyChanged();
+        if (value >= 0)
+        {
+          m_Zucker = value;
+          OnPropertyChanged();
+        }
       }
     }
 
@@ -263,7 +287,7 @@ namespace Kaffee.ViewModel
           Milchkaffees++;
           break;
         case "Sabine":
-          EspressoMacchiatos++;
+          Cappucinos++;
           break;
         default:
           break;
@@ -299,7 +323,7 @@ namespace Kaffee.ViewModel
           Milchkaffees--;
           break;
         case "Sabine":
-          EspressoMacchiatos--;
+          Cappucinos--;
           break;
         default:
           break;
