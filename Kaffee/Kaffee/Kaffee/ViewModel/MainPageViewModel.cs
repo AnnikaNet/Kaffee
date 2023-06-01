@@ -116,6 +116,50 @@ namespace Kaffee.ViewModel
       }
     }
 
+    private int m_Eisschokoladen;
+    public int Eisschokoladen
+    {
+      get { return m_Eisschokoladen; }
+      set
+      {
+        m_Eisschokoladen = value;
+        OnPropertyChanged();
+      }
+    }
+
+    private int m_Kakaos;
+    public int Kakaos
+    {
+      get { return m_Kakaos; }
+      set
+      {
+        m_Kakaos = value;
+        OnPropertyChanged();
+      }
+    }
+
+    private int m_Schokochinos;
+    public int Schokochinos
+    {
+      get { return m_Schokochinos; }
+      set
+      {
+        m_Schokochinos = value;
+        OnPropertyChanged();
+      }
+    }
+
+    private int m_Tees;
+    public int Tees
+    {
+      get { return m_Tees; }
+      set
+      {
+        m_Tees = value;
+        OnPropertyChanged();
+      }
+    }
+
     public int m_Zucker;
     public int Zucker
     {
@@ -167,6 +211,10 @@ namespace Kaffee.ViewModel
       EspressoMacchiatos = 0;
       LatteMacchiatos = 0;
       LattesMitSchuss = 0;
+      Eisschokoladen = 0;
+      Schokochinos = 0;
+      Kakaos = 0;
+      Tees = 0;
       Zucker = 0;
       ScreenWidth = ((DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density)) / 4;
       Personen = new ObservableCollection<Person>();
@@ -243,6 +291,38 @@ namespace Kaffee.ViewModel
         case "LMS-":
           if (LattesMitSchuss > 0)
             LattesMitSchuss--;
+          break;
+
+        case "ESL+":
+          Eisschokoladen++;
+          break;
+        case "ESL-":
+          if(Eisschokoladen > 0)
+            Eisschokoladen--;
+          break;
+
+        case "KAO+":
+          Kakaos++;
+          break;
+        case "KAO-":
+          if (Kakaos > 0)
+            Kakaos--;
+          break;
+
+        case "SCO+":
+          Schokochinos++;
+          break;
+        case "SCO-":
+          if (Schokochinos > 0)
+            Schokochinos--;
+          break;
+
+        case "TEE+":
+          Tees++;
+          break;
+        case "TEE-":
+          if (Tees > 0)
+            Tees--;
           break;
 
         case "ZUC+":
