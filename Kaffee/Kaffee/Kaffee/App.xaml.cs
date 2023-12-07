@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Kaffee
+namespace KaffeeApp
 {
   public partial class App : Application
   {

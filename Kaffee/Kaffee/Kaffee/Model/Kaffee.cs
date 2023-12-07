@@ -8,13 +8,16 @@ using System.Windows.Input;
 
 namespace KaffeeApp.Model
 {
-  public class Person : INotifyPropertyChanged
+  public class Kaffee : INotifyPropertyChanged
   {
     #region Properties
     private string m_Name;
     public string Name
     {
-      get { return m_Name; }
+      get
+      {
+        return m_Name;
+      }
       set
       {
         m_Name = value;
@@ -22,41 +25,32 @@ namespace KaffeeApp.Model
       }
     }
 
-    private bool m_IsPresent;
-    public bool IsPresent
+    private string m_Image;
+    public string Image
     {
-      get { return m_IsPresent; }
+      get { return m_Image; }
       set
       {
-        m_IsPresent = value;
+        m_Image = value;
         OnPropertyChanged();
       }
     }
 
-    private int m_SugarCount;
-    public int SugarCount
+
+    private int m_Anzahl;
+    public int Anzahl
     {
-      get { return m_SugarCount; }
+      get { return m_Anzahl; }
       set
       {
         if (value > 0)
-          m_SugarCount = value;
+          m_Anzahl = value;
         else
-          m_SugarCount = 0;
+          m_Anzahl = 0;
         OnPropertyChanged();
       }
     }
 
-    private Kaffee m_Bestellung;
-    public Kaffee Bestellung
-    {
-      get { return m_Bestellung; }
-      set
-      {
-        m_Bestellung = value;
-        OnPropertyChanged();
-      }
-    }
 
     #endregion Properties
 
@@ -65,73 +59,65 @@ namespace KaffeeApp.Model
     public ICommand MinusButtonPressedCommand { get; internal set; }
     public void PlusButtonPressed()
     {
-      SugarCount++;
+      Anzahl++;
       this.OnPropertyChanged();
     }
 
     public void MinusButtonPressed()
     {
-      if (SugarCount > 0)
-        SugarCount--;
+      if (Anzahl > 0)
+        Anzahl--;
     }
 
     #endregion Commands
 
-    #region Konstruktor 
+    #region Konstruktor
 
-    public Person()
+    public Kaffee()
     {
       PlusButtonPressedCommand = new RelayCommand(PlusButtonPressed);
       MinusButtonPressedCommand = new RelayCommand(MinusButtonPressed);
 
       Name = "";
-      IsPresent = false;
-      SugarCount = 0;
-      Bestellung = new Kaffee();
+      Anzahl = 0;
+      Image = "";
     }
 
-    public Person(Person p_Person)
+    public Kaffee(Kaffee p_Kaffee)
     {
       PlusButtonPressedCommand = new RelayCommand(PlusButtonPressed);
       MinusButtonPressedCommand = new RelayCommand(MinusButtonPressed);
 
-      Name = p_Person.Name;
-      IsPresent = p_Person.IsPresent;
-      SugarCount = p_Person.SugarCount;
-      Bestellung = p_Person.Bestellung;
+      Name = p_Kaffee.Name;
+      Anzahl = p_Kaffee.Anzahl;
+      Image = p_Kaffee.Image;
     }
 
-    public Person(string p_Name, int p_SugarCount, Kaffee p_Bestellung)
+    public Kaffee(string p_Name, string p_Image = "")
     {
       PlusButtonPressedCommand = new RelayCommand(PlusButtonPressed);
       MinusButtonPressedCommand = new RelayCommand(MinusButtonPressed);
 
       Name = p_Name;
-      IsPresent = false;
-      SugarCount = p_SugarCount;
-      Bestellung = p_Bestellung;
+      Anzahl = 0;
+      Image = p_Image == "" ? p_Name.Replace(" ", "") : p_Image;
     }
+
     #endregion Konstruktor
 
-    #region Helper 
-
+    #region Methoden
     public override string ToString()
     {
       return Name;
     }
-    #endregion Helper
+    #endregion Methoden
 
     #region PropertyChanged
-
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string name = null)
     {
-      PropertyChangedEventHandler handler = PropertyChanged;
-      if (handler != null)
-      {
-        handler(this, new PropertyChangedEventArgs(name));
-      }
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
     #endregion PropertyChanged
 

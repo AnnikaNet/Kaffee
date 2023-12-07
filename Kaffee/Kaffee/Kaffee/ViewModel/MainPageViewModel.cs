@@ -1,176 +1,28 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Kaffee.Model;
-using System;
+using KaffeeApp.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.Versioning;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace Kaffee.ViewModel
+namespace KaffeeApp.ViewModel
 {
   public class MainPageViewModel : INotifyPropertyChanged
   {
     #region Properties
 
-    private int m_Cappucinos;
-    public int Cappucinos
+    private ObservableCollection<Kaffee> m_AlleKaffees;
+    public ObservableCollection<Kaffee> AlleKaffees
     {
-      get { return m_Cappucinos; }
+      get { return m_AlleKaffees; }
       set
       {
-        if (value >= 0)
-        {
-          m_Cappucinos = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    private int m_Milchkaffees;
-    public int Milchkaffees
-    {
-      get { return m_Milchkaffees; }
-      set
-      {
-        if (value >= 0)
-        {
-          m_Milchkaffees = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    public int m_KaffeesSchwarz;
-    public int KaffeesSchwarz
-    {
-      get { return m_KaffeesSchwarz; }
-      set
-      {
-        if (value >= 0)
-        {
-          m_KaffeesSchwarz = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    private int m_DoppelteEspressi;
-    public int DoppelteEspressi
-    {
-      get { return m_DoppelteEspressi; }
-      set
-      {
-        if (value >= 0)
-        {
-          m_DoppelteEspressi = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    private int m_EspressoMacchiatos;
-    public int EspressoMacchiatos
-    {
-      get { return m_EspressoMacchiatos; }
-      set
-      {
-        if (value >= 0)
-        {
-          m_EspressoMacchiatos = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-    private int m_LatteMacchiatos;
-    public int LatteMacchiatos
-    {
-      get { return m_LatteMacchiatos; }
-      set
-      {
-        if (value >= 0)
-        {
-          m_LatteMacchiatos = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    private int m_LattesMitSchuss;
-    public int LattesMitSchuss
-    {
-      get { return m_LattesMitSchuss; }
-      set
-      {
-        if (value >= 0)
-        {
-          m_LattesMitSchuss = value;
-          OnPropertyChanged();
-        }
-      }
-    }
-
-    private int m_Eisschokoladen;
-    public int Eisschokoladen
-    {
-      get { return m_Eisschokoladen; }
-      set
-      {
-        m_Eisschokoladen = value;
+        m_AlleKaffees = value;
         OnPropertyChanged();
-      }
-    }
-
-    private int m_Kakaos;
-    public int Kakaos
-    {
-      get { return m_Kakaos; }
-      set
-      {
-        m_Kakaos = value;
-        OnPropertyChanged();
-      }
-    }
-
-    private int m_Schokochinos;
-    public int Schokochinos
-    {
-      get { return m_Schokochinos; }
-      set
-      {
-        m_Schokochinos = value;
-        OnPropertyChanged();
-      }
-    }
-
-    private int m_Tees;
-    public int Tees
-    {
-      get { return m_Tees; }
-      set
-      {
-        m_Tees = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public int m_Zucker;
-    public int Zucker
-    {
-      get { return m_Zucker; }
-      set
-      {
-        if (value >= 0)
-        {
-          m_Zucker = value;
-          OnPropertyChanged();
-        }
       }
     }
 
@@ -196,32 +48,32 @@ namespace Kaffee.ViewModel
       }
     }
 
+    private Person m_SelectedPerson;
+    public Person SelectedPerson
+    {
+      get { return m_SelectedPerson; }
+      set
+      {
+        m_SelectedPerson = value;
+        OnPropertyChanged();
+      }
+    }
+
 
     #endregion Properties
 
     #region Konstruktor
     public MainPageViewModel()
     {
-      ButtonPressedCommand = new RelayCommand<string>(ButtonPressed);
-
-      Cappucinos = 0;
-      Milchkaffees = 0;
-      KaffeesSchwarz = 0;
-      DoppelteEspressi = 0;
-      EspressoMacchiatos = 0;
-      LatteMacchiatos = 0;
-      LattesMitSchuss = 0;
-      Eisschokoladen = 0;
-      Schokochinos = 0;
-      Kakaos = 0;
-      Tees = 0;
-      Zucker = 0;
       ScreenWidth = ((DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density)) / 4;
       Personen = new ObservableCollection<Person>();
+
+      AddPersonCommand = new RelayCommand(AddPerson);
+
+      LoadCoffee();
       DoPersons();
     }
     #endregion Konstruktor
-
 
     #region Commands
     public ICommand ButtonPressedCommand { get; internal set; }
@@ -229,242 +81,84 @@ namespace Kaffee.ViewModel
     {
       return true;
     }
+
+    public ICommand AddPersonCommand { get; internal set; }
+    private async void AddPerson()
+    {
+      string result = await App.Current.MainPage.DisplayPromptAsync("Name eingeben", "Bitte Namen eingeben");
+      if (Personen.FirstOrDefault(p => p.Name == result) != null)
+      {
+        await App.Current.MainPage.DisplayAlert("Dopplung", @"Es existiert schon eine Person mit dem Namen " + result + "", "OK");
+      }
+      else
+      {
+        Personen.Add(new Person() { Name = result });
+        SelectedPerson = Personen.FirstOrDefault(p => p.Name == result);
+      }
+    }
+
+    public void PersonTapped(object sender, ItemTappedEventArgs e)
+    {
+      if (e.Item is Person l_Person)
+      {
+        if (!l_Person.IsPresent)
+        {
+          AlleKaffees.FirstOrDefault(k => k.Name == l_Person.Bestellung.Name).Anzahl++;
+          AlleKaffees.FirstOrDefault(k => k.Name == "Zucker").Anzahl = AlleKaffees.FirstOrDefault(k => k.Name == "Zucker").Anzahl + l_Person.SugarCount;
+          l_Person.IsPresent = true;
+        }
+        else
+        {
+          AlleKaffees.FirstOrDefault(k => k.Name == ((Person)e.Item).Bestellung.Name).Anzahl--;
+          AlleKaffees.FirstOrDefault(k => k.Name == "Zucker").Anzahl = AlleKaffees.FirstOrDefault(k => k.Name == "Zucker").Anzahl - l_Person.SugarCount;
+          l_Person.IsPresent = false;
+        }
+
+      }
+    }
+
     #endregion Commands
 
     #region Methoden
-
-    public void ButtonPressed(string sender)
-    {
-      switch (sender)
-      {
-        case "CPC+":
-          Cappucinos++;
-          break;
-        case "CPC-":
-          if (Cappucinos > 0)
-            Cappucinos--;
-          break;
-
-        case "MKF+":
-          Milchkaffees++;
-          break;
-        case "MKF-":
-          if (Milchkaffees > 0)
-            Milchkaffees--;
-          break;
-
-        case "KFS+":
-          KaffeesSchwarz++;
-          break;
-        case "KFS-":
-          if (KaffeesSchwarz > 0)
-            KaffeesSchwarz--;
-          break;
-
-        case "DEP+":
-          DoppelteEspressi++;
-          break;
-        case "DEP-":
-          if (DoppelteEspressi > 0)
-            DoppelteEspressi--;
-          break;
-
-        case "EMA+":
-          EspressoMacchiatos++;
-          break;
-        case "EMA-":
-          if (EspressoMacchiatos > 0)
-            EspressoMacchiatos--;
-          break;
-
-        case "LMA+":
-          LatteMacchiatos++;
-          break;
-        case "LMA-":
-          if (LatteMacchiatos > 0)
-            LatteMacchiatos--;
-          break;
-
-        case "LMS+":
-          LattesMitSchuss++;
-          break;
-        case "LMS-":
-          if (LattesMitSchuss > 0)
-            LattesMitSchuss--;
-          break;
-
-        case "ESL+":
-          Eisschokoladen++;
-          break;
-        case "ESL-":
-          if(Eisschokoladen > 0)
-            Eisschokoladen--;
-          break;
-
-        case "KAO+":
-          Kakaos++;
-          break;
-        case "KAO-":
-          if (Kakaos > 0)
-            Kakaos--;
-          break;
-
-        case "SCO+":
-          Schokochinos++;
-          break;
-        case "SCO-":
-          if (Schokochinos > 0)
-            Schokochinos--;
-          break;
-
-        case "TEE+":
-          Tees++;
-          break;
-        case "TEE-":
-          if (Tees > 0)
-            Tees--;
-          break;
-
-        case "ZUC+":
-          Zucker++;
-          break;
-        case "ZUC-":
-          if (Zucker > 0)
-            Zucker--;
-          break;
-
-        default:
-          break;
-      }
-    }
-
-    public void AddKaffee(string name)
-    {
-      switch (name)
-      {
-        case "Anna":
-          Cappucinos++;
-          Zucker = Zucker + 2;
-          break;
-        case "Annika":
-          LattesMitSchuss++;
-          break;
-        case "Daniel":
-          KaffeesSchwarz++;
-          break;
-        case "Kevin":
-          DoppelteEspressi++;
-          break;
-        case "Tim":
-          Cappucinos++;
-          Zucker++;
-          break;
-        case "Jakob":
-          Milchkaffees++;
-          Zucker = Zucker + 2;
-          break;
-        case "Jan":
-          Milchkaffees++;
-          break;
-        case "Sabine":
-          Cappucinos++;
-          break;
-        default:
-          break;
-      }
-    }
-
-    public void SubtractKaffee(string name)
-    {
-      switch (name)
-      {
-        case "Anna":
-          Cappucinos--;
-          Zucker = Zucker - 2;
-          break;
-        case "Annika":
-          LattesMitSchuss--;
-          break;
-        case "Daniel":
-          KaffeesSchwarz--;
-          break;
-        case "Kevin":
-          DoppelteEspressi--;
-          break;
-        case "Tim":
-          Cappucinos--;
-          Zucker--;
-          break;
-        case "Jakob":
-          Milchkaffees--;
-          Zucker = Zucker - 2;
-          break;
-        case "Jan":
-          Milchkaffees--;
-          break;
-        case "Sabine":
-          Cappucinos--;
-          break;
-        default:
-          break;
-      }
-    }
 
     #endregion Methoden
 
     #region Helper 
 
+    private void LoadCoffee()
+    {
+      List<Kaffee> l_Kaffees = new List<Kaffee>()
+      {
+        new Model.Kaffee("Cappucino"),
+        new Model.Kaffee("Milchkaffee"),
+        new Model.Kaffee("schwarzer Kaffee"),
+        new Model.Kaffee("Doppelter Espresso"),
+        new Model.Kaffee("Espresso Macchiato"),
+        new Model.Kaffee("Latte Macchiato"),
+        new Model.Kaffee("Latte mit Schuss"),
+        new Model.Kaffee("Eisschokolade"),
+        new Model.Kaffee("Schokochino"),
+        new Model.Kaffee("Kakao"),
+        new Model.Kaffee("Tee"),
+        new Model.Kaffee("Zucker")
+      };
+
+      AlleKaffees = new ObservableCollection<Kaffee>(l_Kaffees);
+    }
+
     public void DoPersons()
     {
-      ObservableCollection<Person> l_Personen = new ObservableCollection<Person>();
+      List<Person> l_Personen = new List<Person>();
 
-      l_Personen.Add(new Person()
-      {
-        Name = "Anna",
-        IsPresent = false
-      });
+      l_Personen.Add(new Person("Anna", 2, AlleKaffees.FirstOrDefault(k => k.Name == "Cappucino")));
+      l_Personen.Add(new Person("Annika", 0, AlleKaffees.FirstOrDefault(k => k.Name == "Latte mit Schuss")));
+      l_Personen.Add(new Person("Daniel", 0, AlleKaffees.FirstOrDefault(k => k.Name == "schwarzer Kaffee")));
+      l_Personen.Add(new Person("Kevin", 0, AlleKaffees.FirstOrDefault(k => k.Name == "Doppelter Espresso")));
+      l_Personen.Add(new Person("Tim", 1, AlleKaffees.FirstOrDefault(k => k.Name == "Cappucino")));
+      l_Personen.Add(new Person("Jakob", 1, AlleKaffees.FirstOrDefault(k => k.Name == "Eisschokolade")));
+      l_Personen.Add(new Person("Sabine", 0, AlleKaffees.FirstOrDefault(k => k.Name == "Cappucino")));
+      l_Personen.Add(new Person("Jan", 1, AlleKaffees.FirstOrDefault(k => k.Name == "Milchkaffee")));
 
-      l_Personen.Add(new Person()
-      {
-        Name = "Annika",
-        IsPresent = false
-      });
-
-      l_Personen.Add(new Person()
-      {
-        Name = "Daniel",
-        IsPresent = false
-      });
-
-      l_Personen.Add(new Person()
-      {
-        Name = "Kevin",
-        IsPresent = false
-      });
-
-      l_Personen.Add(new Person()
-      {
-        Name = "Tim",
-        IsPresent = false
-      });
-
-      l_Personen.Add(new Person()
-      {
-        Name = "Jakob",
-        IsPresent = false
-      });
-
-      l_Personen.Add(new Person()
-      {
-        Name = "Jan",
-        IsPresent = false
-      });
-
-      l_Personen.Add(new Person()
-      {
-        Name = "Sabine",
-        IsPresent = false
-      });
 
       Personen = new ObservableCollection<Person>(l_Personen.OrderBy(p => p.Name));
 

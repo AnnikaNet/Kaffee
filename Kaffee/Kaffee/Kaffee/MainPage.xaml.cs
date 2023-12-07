@@ -1,12 +1,12 @@
-﻿using Kaffee.Model;
-using Kaffee.ViewModel;
+﻿using KaffeeApp.Model;
+using KaffeeApp.ViewModel;
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 
-namespace Kaffee
+namespace KaffeeApp
 {
-  public partial class MainPage : ContentPage
+  public partial class MainPage : Shell
   {
     public MainPage()
     {
@@ -25,25 +25,25 @@ namespace Kaffee
 
       //  }
     }
-    private void ViewCell_Tapped(object sender, EventArgs e)
-    {
-      var selp = (Person)((ListView)((ViewCell)sender).Parent).SelectedItem;
-      var vc = (ViewCell)sender;
-      if (vc.View != null)
-      {
-        if (selp.IsPresent)
-        {
-          selp.IsPresent = false;
-          vc.View.BackgroundColor = Color.Transparent;
-          ((MainPageViewModel)this.BindingContext).SubtractKaffee(selp.Name);
-        }
-        else
-        {
-          selp.IsPresent = true;
-          vc.View.BackgroundColor = Color.Blue;
-          ((MainPageViewModel)this.BindingContext).AddKaffee(selp.Name);
-        }
-      }
-    }
+    //private void ViewCell_Tapped(object sender, EventArgs e)
+    //{
+    //  var selp = (Person)((ListView)((ViewCell)sender).Parent).SelectedItem;
+    //  var vc = (ViewCell)sender;
+    //  if (vc.View != null)
+    //  {
+    //    if (selp.IsPresent)
+    //    {
+    //      selp.IsPresent = false;
+    //      vc.View.BackgroundColor = Color.Transparent;
+    //      ((MainPageViewModel)this.BindingContext).SubtractKaffee(selp.Name);
+    //    }
+    //    else
+    //    {
+    //      selp.IsPresent = true;
+    //      vc.View.BackgroundColor = Color.Blue;
+    //      ((MainPageViewModel)this.BindingContext).AddKaffee(selp.Name);
+    //    }
+    //  }
+    //}
   }
 }

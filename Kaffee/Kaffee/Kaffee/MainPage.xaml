@@ -1,29 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Kaffee.MainPage"
-             xmlns:local="clr-namespace:Kaffee"
-             xmlns:vm="clr-namespace:Kaffee.ViewModel"
-             Title="Kaffee">
-  <ContentPage.BindingContext>
+             x:Class="KaffeeApp.MainPage"
+             xmlns:local="clr-namespace:KaffeeApp"
+             xmlns:vm="clr-namespace:KaffeeApp.ViewModel">
+  <Shell.BindingContext>
     <vm:MainPageViewModel/>
-  </ContentPage.BindingContext>
-  <ContentPage.Resources>
-    <Style TargetType="Button" x:Key="ButtonStyle">
-      <Setter Property="BackgroundColor" Value="DarkBlue"/>
-      <Setter Property="TextColor" Value="White"/>
-      <Setter Property="FontSize" Value="Title"/>
-      <Setter Property="FontAttributes" Value="Bold"/>
-      <Setter Property="HeightRequest" Value="40"/>
-      <Setter Property="WidthRequest" Value="40"/>
-      <Setter Property="Padding" Value="-5,0"/>
-      <Setter Property="HorizontalOptions" Value="Center"/>
-      <Setter Property="VerticalOptions" Value="Center"/>
-      <Setter Property="CornerRadius" Value="5"/>
-    </Style>
-  </ContentPage.Resources>
+  </Shell.BindingContext>
 
-  <ScrollView>
+  <FlyoutItem Title="Kaffee">
+    <ShellContent>
+      <local:KaffeePage/>
+    </ShellContent>
+  </FlyoutItem>
+  <FlyoutItem Title="Personen">
+    <ShellContent >
+      <local:PersonenPage/>
+    </ShellContent>
+  </FlyoutItem>
+  <FlyoutItem Title="Einstellungen">
+    <ShellContent>
+      <!--<local:MainPage/>-->
+    </ShellContent>
+  </FlyoutItem>
+
+
+
+  <!--<ScrollView>
 
     <Grid BackgroundColor="DeepSkyBlue">
 
@@ -41,8 +44,10 @@
         <RowDefinition Height="5"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="5"/>
-        <!--<RowDefinition Height="300"/>
+        -->
+  <!--<RowDefinition Height="300"/>
         <RowDefinition Height="5"/>-->
+  <!--
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
@@ -271,7 +276,8 @@
         <Button Text="+" CommandParameter="ZUC+" Command="{Binding ButtonPressedCommand}" Grid.Column="4" Grid.Row="2" Style="{StaticResource ButtonStyle}"/>
       </Grid>
 
-      <!--<ListView Grid.Row="13" Grid.Column="1" ItemsSource="{Binding Personen, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}" ItemTapped="ListView_ItemTapped" IsVisible="True">
+      -->
+  <!--<ListView Grid.Row="13" Grid.Column="1" ItemsSource="{Binding Personen, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}" ItemTapped="ListView_ItemTapped" IsVisible="True">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell Tapped="ViewCell_Tapped" >
@@ -280,9 +286,10 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>-->
+  <!--
 
 
     </Grid>
 
-  </ScrollView>
-</ContentPage>
+  </ScrollView>-->
+</Shell>
