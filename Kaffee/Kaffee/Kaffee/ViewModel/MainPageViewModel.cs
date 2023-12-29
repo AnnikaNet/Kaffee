@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KaffeeApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -69,9 +71,11 @@ namespace KaffeeApp.ViewModel
       Personen = new ObservableCollection<Person>();
 
       AddPersonCommand = new RelayCommand(AddPerson);
+      SaveCommand = new RelayCommand(Save);
+      DeleteCommand = new RelayCommand(Delete);
 
       LoadCoffee();
-      DoPersons();
+      ReadPersons();
     }
     #endregion Konstruktor
 
@@ -93,8 +97,9 @@ namespace KaffeeApp.ViewModel
       else
       {
         Personen.Add(new Person() { Name = result });
-        SelectedPerson = Personen.FirstOrDefault(p => p.Name == result);
       }
+      Personen = new ObservableCollection<Person>(Personen.OrderBy(p => p.Name));
+      SelectedPerson = Personen.FirstOrDefault(p => p.Name == result);
     }
 
     public void PersonTapped(object sender, ItemTappedEventArgs e)
@@ -117,9 +122,76 @@ namespace KaffeeApp.ViewModel
       }
     }
 
+    public ICommand SaveCommand { get; internal set; }
+
+    private void Save()
+    {
+      SavePersons();
+    }
+
+    public ICommand DeleteCommand { get; internal set; }
+
+    private void Delete()
+    {
+      if (SelectedPerson.IsPresent)
+      {
+        AlleKaffees.FirstOrDefault(k => k.Name == SelectedPerson.Bestellung.Name).Anzahl--;
+        AlleKaffees.FirstOrDefault(k => k.Name == "Zucker").Anzahl = AlleKaffees.FirstOrDefault(k => k.Name == "Zucker").Anzahl - SelectedPerson.SugarCount;
+      }
+      Personen.Remove(SelectedPerson);
+      SelectedPerson = new Person();
+    }
+
     #endregion Commands
 
     #region Methoden
+
+    public void PersonAdded(Person p_Added)
+    {
+      AlleKaffees.FirstOrDefault(k => k.Name == p_Added.Bestellung.Name).Anzahl++;
+      AlleKaffees.FirstOrDefault(z => z.Name == "Zucker").Anzahl += p_Added.SugarCount;
+      Personen.FirstOrDefault(p => p == p_Added).IsPresent = true;
+    }
+
+    public void PersonDeleted(Person p_Deleted)
+    {
+      AlleKaffees.FirstOrDefault(k => k.Name == p_Deleted.Bestellung.Name).Anzahl--;
+      AlleKaffees.FirstOrDefault(z => z.Name == "Zucker").Anzahl -= p_Deleted.SugarCount;
+      Personen.FirstOrDefault(p => p == p_Deleted).IsPresent = false;
+    }
+
+    public void ReadPersons()
+    {
+      string l_fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Personen.txt");
+      if (File.Exists(l_fileName))
+      {
+        Personen = new ObservableCollection<Person>();
+        string Text = File.ReadAllText(l_fileName);
+        string[] lines = Text.Split('\n');
+        foreach (string line in lines.Where(l => l != ""))
+        {
+          string[] values = line.Split(',');
+          Person p = new Person();
+          p.Name = values[0];
+          p.Bestellung = AlleKaffees.FirstOrDefault(k => k.Name == values[1]);
+          p.SugarCount = Convert.ToInt32(values[2]);
+          Personen.Add(p);
+        }
+        Personen = new ObservableCollection<Person>(Personen.OrderBy(p => p.Name));
+      }
+    }
+
+    public void SavePersons()
+    {
+      string filecontent = "";
+      foreach (Person p in Personen)
+      {
+        filecontent = filecontent + p.Name + "," + p.Bestellung.Name + "," + p.SugarCount + "\n";
+      }
+
+      string _fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Personen.txt");
+      File.WriteAllText(_fileName, filecontent);
+    }
 
     #endregion Methoden
 
@@ -131,8 +203,8 @@ namespace KaffeeApp.ViewModel
       {
         new Model.Kaffee("Cappucino"),
         new Model.Kaffee("Milchkaffee"),
-        new Model.Kaffee("schwarzer Kaffee"),
-        new Model.Kaffee("Doppelter Espresso"),
+        new Model.Kaffee("schwarzer Kaffee","Schwarz"),
+        new Model.Kaffee("Doppelter Espresso","Espresso"),
         new Model.Kaffee("Espresso Macchiato"),
         new Model.Kaffee("Latte Macchiato"),
         new Model.Kaffee("Latte mit Schuss"),
@@ -144,24 +216,6 @@ namespace KaffeeApp.ViewModel
       };
 
       AlleKaffees = new ObservableCollection<Kaffee>(l_Kaffees);
-    }
-
-    public void DoPersons()
-    {
-      List<Person> l_Personen = new List<Person>();
-
-      l_Personen.Add(new Person("Anna", 2, AlleKaffees.FirstOrDefault(k => k.Name == "Cappucino")));
-      l_Personen.Add(new Person("Annika", 0, AlleKaffees.FirstOrDefault(k => k.Name == "Latte mit Schuss")));
-      l_Personen.Add(new Person("Daniel", 0, AlleKaffees.FirstOrDefault(k => k.Name == "schwarzer Kaffee")));
-      l_Personen.Add(new Person("Kevin", 0, AlleKaffees.FirstOrDefault(k => k.Name == "Doppelter Espresso")));
-      l_Personen.Add(new Person("Tim", 1, AlleKaffees.FirstOrDefault(k => k.Name == "Cappucino")));
-      l_Personen.Add(new Person("Jakob", 1, AlleKaffees.FirstOrDefault(k => k.Name == "Eisschokolade")));
-      l_Personen.Add(new Person("Sabine", 0, AlleKaffees.FirstOrDefault(k => k.Name == "Cappucino")));
-      l_Personen.Add(new Person("Jan", 1, AlleKaffees.FirstOrDefault(k => k.Name == "Milchkaffee")));
-
-
-      Personen = new ObservableCollection<Person>(l_Personen.OrderBy(p => p.Name));
-
     }
 
     #endregion Helper

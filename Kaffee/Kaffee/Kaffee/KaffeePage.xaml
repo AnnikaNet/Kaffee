@@ -21,6 +21,11 @@
       <Setter Property="TextColor" Value="Black"/>
       <Setter Property="FontSize" Value="Medium"/>
     </Style>
+
+    <Style TargetType="Label" x:Key="NameLabelStyle">
+      <Setter Property="TextColor" Value="Black"/>
+      <Setter Property="FontSize" Value="Small"/>
+    </Style>
   </ContentPage.Resources>
   <ContentPage.Content>
     <StackLayout BackgroundColor="DeepSkyBlue">
@@ -62,34 +67,23 @@
           </DataTemplate>
         </CollectionView.ItemTemplate>
       </CollectionView>
-      <ListView ItemsSource="{Binding Personen}" ItemTapped="ListView_ItemTapped">
-        <ListView.ItemTemplate>
+      <Rectangle HeightRequest="5"/>
+      <CollectionView ItemsSource="{Binding Personen}"  SelectionMode="Multiple" SelectionChanged="CollectionView_SelectionChanged" HeightRequest="100">
+        <CollectionView.ItemsLayout>
+          <GridItemsLayout Orientation="Vertical"
+                           Span="4"
+                           VerticalItemSpacing="10"
+                           HorizontalItemSpacing="10"
+                           />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
           <DataTemplate>
-            <ViewCell>
-              <ViewCell.View>
-                <StackLayout Orientation="Horizontal">
-                  <!--<CheckBox IsChecked="{Binding IsPresent, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}" IsEnabled="False"/>-->
-                  <Label Text="{Binding Name}">
-                    <Label.Triggers>
-                      <DataTrigger TargetType="Label" Binding="{Binding IsPresent, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}" Value="True">
-                        <Setter Property="Background" Value="Green"/>
-                      </DataTrigger>
-                    </Label.Triggers>
-                  </Label>
-                </StackLayout>
-              </ViewCell.View>
-            </ViewCell>
+            <Grid>
+              <Label Text="{Binding Name}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Style="{StaticResource NameLabelStyle}"/>
+            </Grid>
           </DataTemplate>
-        </ListView.ItemTemplate>
-        <!--<ListView.Triggers>
-          <DataTrigger TargetType="ListView" Binding="{Binding IsPresent}" Value="true">
-            <Setter Property="BackgroundColor" Value="Red"/>
-          </DataTrigger>
-          <DataTrigger TargetType="ListView" Binding="{Binding IsPresent}" Value="true">
-            <Setter Property="BackgroundColor" Value="Transparent"/>
-          </DataTrigger>
-        </ListView.Triggers>-->
-      </ListView>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

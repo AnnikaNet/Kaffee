@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows.Input;
 
 namespace KaffeeApp.Model
@@ -119,6 +116,15 @@ namespace KaffeeApp.Model
     {
       return Name;
     }
+
+    public override bool Equals(object obj)
+    {
+      if (obj is Person per)
+        return Name == per.Name;
+
+      return base.Equals(obj);
+    }
+
     #endregion Helper
 
     #region PropertyChanged

@@ -20,6 +20,14 @@
       <Setter Property="TextColor" Value="Black"/>
       <Setter Property="FontSize" Value="Medium"/>
     </Style>
+    <Style TargetType="Picker" x:Key="PickerStyle">
+      <Setter Property="TextColor" Value="Black"/>
+      <Setter Property="FontSize" Value="Medium"/>
+    </Style>
+    <Style TargetType="Editor" x:Key="EditorStyle">
+      <Setter Property="TextColor" Value="Black"/>
+      <Setter Property="FontSize" Value="Medium"/>
+    </Style>
   </ContentPage.Resources>
   <ContentPage.Content>
     <Grid BackgroundColor="Aquamarine">
@@ -39,6 +47,8 @@
         <RowDefinition Height="10"/>
         <RowDefinition Height="40"/>
         <RowDefinition Height="*"/>
+        <RowDefinition Height="40"/>
+        <RowDefinition Height="20"/>
       </Grid.RowDefinitions>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5"/>
@@ -46,18 +56,25 @@
         <ColumnDefinition Width="5"/>
       </Grid.ColumnDefinitions>
 
-      <Picker ItemsSource="{Binding Personen, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" HeightRequest="40" WidthRequest="50" SelectedItem="{Binding SelectedPerson, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}"/>
+      <Picker ItemsSource="{Binding Personen, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" HeightRequest="40" WidthRequest="50" SelectedItem="{Binding SelectedPerson, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}" Style="{StaticResource PickerStyle}"/>
       <Button Text="+" Style="{StaticResource ButtonStyle}" Grid.Column="1" Grid.Row="1" HorizontalOptions="End" Command="{Binding AddPersonCommand}"/>
 
       <Label Text="Name" Style="{StaticResource LableStyle}" Grid.Column="1" Grid.Row="3"/>
-      <Editor Grid.Column="1" Grid.Row="5" Text="{Binding SelectedPerson.Name, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}"/>
+      <Editor Grid.Column="1" Grid.Row="5" Text="{Binding SelectedPerson.Name, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}" Style="{StaticResource EditorStyle}"/>
 
       <Label Text="Kaffeesorte" Style="{StaticResource LableStyle}" Grid.Column="1" Grid.Row="7"/>
-      <Picker ItemsSource="{Binding AlleKaffees, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}" Grid.Column="1" Grid.Row="9" SelectedItem="{Binding SelectedPerson.Bestellung, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}"/>
+      <Picker ItemsSource="{Binding AlleKaffees, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}" Grid.Column="1" Grid.Row="9" SelectedItem="{Binding SelectedPerson.Bestellung, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}" Style="{StaticResource PickerStyle}"/>
 
       <Label Text="Zucker" Style="{StaticResource LableStyle}" Grid.Column="1" Grid.Row="11"/>
-      <Editor Grid.Column="1" Grid.Row="13" Keyboard="Numeric" Text="{Binding SelectedPerson.SugarCount, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}"/>
+      <Editor Grid.Column="1" Grid.Row="13" Keyboard="Numeric" Text="{Binding SelectedPerson.SugarCount, UpdateSourceEventName=PropertyChanged, Mode=TwoWay}" Style="{StaticResource EditorStyle}"/>
 
+      <StackLayout Grid.Column="1" Grid.Row="15" Orientation="Horizontal">
+        <Rectangle WidthRequest="20"/>
+        <Button Text="Speichern" Command="{Binding SaveCommand}"/> 
+        <Rectangle WidthRequest="50"/>
+        <Button Text="Löschen" Command="{Binding DeleteCommand}"/>
+      </StackLayout>
+      
     </Grid>
   </ContentPage.Content>
 </ContentPage>
